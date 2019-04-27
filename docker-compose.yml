@@ -1,21 +1,19 @@
 version: "2"
 services:
   app:
-    image: flaskapp
+    build: ./app
     links:
       - db
     ports:
       - "5000:5000"
   db:
-    image: flaskdb
+    build: ./db
     ports:
-      - "32000:3306"
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: "Pa$$w0rd"
-      MYSQL_ROOT_USER: "root"
-      MYSQL_DATABASE: "mydb"
-      MYSQL_DATABASE_HOST: "%"
-    volumes:
-        - ./db-container/db_seed.sql:/data/application/db_seed.sql
+      MYSQL_PASSWORD: "Pa$$w0rd"
+#    volumes:
+#        - ./db-container/db_seed.sql:/data/application/db_seed.sql
 #    volumes:
 #      - ./db_seed.sql:/docker-entrypoint-initdb.d/db_seed.sql
