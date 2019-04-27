@@ -9,13 +9,19 @@ parser = SafeConfigParser()
 parser.read('.my.cnf')
 
 app = Flask(__name__)
-mysql = MySQL(app)
 
 user = parser.get('client', 'user')
 password = parser.get('client', 'password')
 database = parser.get('client', 'database')
 host = parser.get('client', 'host')
 port = parser.get('mysqlId', 'port')
+
+cnx = mysql.connector.connect(user=user, password=password,
+                              host=host,
+                              database=database, port=port,
+			      auth_plugin='mysql_native_password')
+cnx.close()
+mysql = MySQL(cnx)
 
 app.config['MYSQL_DATABASE_USER'] = user
 app.config['MYSQL_DATABASE_PASSWORD'] = password

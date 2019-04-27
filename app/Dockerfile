@@ -8,6 +8,7 @@ RUN pip install flask-mysql
 RUN pip install -U setuptools
 RUN pip install configparser
 RUN pip install mysqlclient
+RUN pip install mysql-connector-python
 RUN pip install configparser
 RUN pip install ConfigParser
 

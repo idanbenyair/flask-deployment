@@ -1,7 +1,10 @@
-version: "2"
+version: "2.1"
 services:
   app:
     build: ./app
+    depends_on:
+      db:
+        condition: service_healthy
     links:
       - db
     ports:
@@ -13,7 +16,10 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "Pa$$w0rd"
       MYSQL_PASSWORD: "Pa$$w0rd"
+    healthcheck:
+      test: "exit 0"
 #    volumes:
-#        - ./db-container/db_seed.sql:/data/application/db_seed.sql
-#    volumes:
-#      - ./db_seed.sql:/docker-entrypoint-initdb.d/db_seed.sql
+#    #        - ./db-container/db_seed.sql:/data/application/db_seed.sql
+#    #    volumes:
+#    #      - ./db_seed.sql:/docker-entrypoint-initdb.d/db_seed.sql
+#
