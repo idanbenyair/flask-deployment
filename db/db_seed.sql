@@ -2,7 +2,6 @@ CREATE DATABASE mydb;
 USE mydb;
 
 CREATE USER 'flaskdbuser'@'%' IDENTIFIED BY 'Pa$$w0rd';
-IDENTIFIED WITH caching_sha2_password BY 'Pa$$w0rd';
 GRANT ALL on *.* to 'flaskdbuser'@'%' ;
 
 FLUSH PRIVILEGES;
