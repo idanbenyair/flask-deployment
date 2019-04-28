@@ -3,7 +3,6 @@ from flaskext.mysql import MySQL
 import mysql.connector
 import MySQLdb
 from configparser import SafeConfigParser
-#import configparser
 from pymysql.cursors import DictCursor
 
 parser = SafeConfigParser()
