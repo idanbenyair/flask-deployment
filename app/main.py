@@ -23,16 +23,13 @@ app.config['MYSQL_DATABASE_DB'] = database
 app.config['MYSQL_DATABASE_HOST'] = host
 app.config['MYSQL_DATABASE_PORT'] = 3306
 
-#mysql = MySQL(cursorclass=DictCursor)
 mysql = MySQL()
 mysql.init_app(app)
-#conn = mysql.connect()
 
 @app.route("/message", methods=['GET'])
 def message():
 	cursor = mysql.connect().cursor()
 	cursor.execute("SELECT message from mytable where 1")
-#	return cursor.fetchone()
 	result =  cursor.fetchone()
 	for row in result:
 		return row
