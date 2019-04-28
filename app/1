@@ -2,8 +2,7 @@ from flask import Flask
 from flaskext.mysql import MySQL
 import mysql.connector
 import MySQLdb
-from configparser import SafeConfigParser
-#import configparser
+from ConfigParser import SafeConfigParser
 from pymysql.cursors import DictCursor
 
 parser = SafeConfigParser()
@@ -17,26 +16,25 @@ database = parser.get('client', 'database')
 host = parser.get('client', 'host')
 port = parser.get('mysqlId', 'port')
 
+cnx = mysql.connector.connect(user='flaskdbuser', password='Pa$$w0rd',
+                              host='',
+                              database='mydb', port=3306,
+			      auth_plugin='mysql_native_password')
+cnx.close()
+mysql = MySQL()
+
 app.config['MYSQL_DATABASE_USER'] = user
 app.config['MYSQL_DATABASE_PASSWORD'] = password
 app.config['MYSQL_DATABASE_DB'] = database
 app.config['MYSQL_DATABASE_HOST'] = host
-app.config['MYSQL_DATABASE_PORT'] = 3306
+app.config['MYSQL_DATABASE_PORT'] = port
 
-#mysql = MySQL(cursorclass=DictCursor)
-mysql = MySQL()
 mysql.init_app(app)
-#conn = mysql.connect()
-
-@app.route("/message", methods=['GET'])
+@app.route("/message")
 def message():
-	cursor = mysql.connect().cursor()
-	cursor.execute("SELECT message from mytable where 1")
-#	return cursor.fetchone()
-	result =  cursor.fetchone()
-	for row in result:
-		return row
+    	cursor = mysql.connect().cursor()
+    	return cursor.fetchone()
 
 
 if __name__ == "__main__":
-    app.run(port=5000, threaded=True, host=("0.0.0.0"), debug=True)
+    app.run(port=5000, threaded=True, host=("0.0.0.0"))
